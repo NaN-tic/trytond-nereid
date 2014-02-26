@@ -63,7 +63,7 @@
         </record>
 
         <record id="new_pass_url" model="nereid.url_rule">
-            <field name="rule">/new-password</field>
+            <field name="rule">/new-password/&lt;int:active_id&gt;/&lt;sign&gt;</field>
             <field name="endpoint">nereid.user.new_password</field>
             <field name="sequence" eval="65" />
             <field name="http_method_get" eval="True"/>
@@ -72,11 +72,18 @@
         </record>
 
         <record id="activate_url" model="nereid.url_rule">
-            <field name="rule">/activate-account/&lt;int:active_id&gt;/&lt;activation_code&gt;</field>
+            <field name="rule">/activate-account/&lt;int:active_id&gt;/&lt;sign&gt;</field>
             <field name="endpoint">nereid.user.activate</field>
             <field name="sequence" eval="70" />
             <field name="http_method_get" eval="True"/>
-            <field name="http_method_post" eval="True"/>
+            <field name="url_map" ref="default_url_map" />
+        </record>
+
+        <record id="verify_email" model="nereid.url_rule">
+            <field name="rule">/verify-email/&lt;int:active_id&gt;/&lt;sign&gt;</field>
+            <field name="endpoint">nereid.user.verify_email</field>
+            <field name="sequence" eval="70" />
+            <field name="http_method_get" eval="True"/>
             <field name="url_map" ref="default_url_map" />
         </record>
 
@@ -89,6 +96,8 @@
             <field name="url_map" ref="default_url_map" />
         </record>
 
+        <!-- This URL is due for deprecation and should point
+             to party.address.create_address from 3.2.X -->
         <record id="save_address_url" model="nereid.url_rule">
             <field name="rule">/save-new-address</field>
             <field name="endpoint">party.address.edit_address</field>
@@ -98,6 +107,14 @@
             <field name="url_map" ref="default_url_map" />
         </record>
 
+        <record id="create_address_url" model="nereid.url_rule">
+            <field name="rule">/create-address</field>
+            <field name="endpoint">party.address.create_address</field>
+            <field name="sequence" eval="90" />
+            <field name="http_method_get" eval="True"/>
+            <field name="http_method_post" eval="True"/>
+            <field name="url_map" ref="default_url_map" />
+        </record>
 
         <record id="edit_address_url" model="nereid.url_rule">
             <field name="rule">/edit-address/&lt;int:address&gt;</field>
